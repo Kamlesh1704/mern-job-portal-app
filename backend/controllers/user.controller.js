@@ -106,16 +106,21 @@ export const login = async (req, res) => {
       savedJobs: user.savedJobs
     };
 
-    return res.status(200).cookie("token", token, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
-        httpsOnly: true,
-        sameSite: "strict",
-      })
-      .json({
-        message: `Welcome back ${user.fullname}`,
-        user,
-        success: true,
-      });
+ return res
+  .status(200)
+  .cookie("token", token, {
+    maxAge: 1 * 24 * 60 * 60 * 1000,
+    httpOnly: true,     // typo fixed (not httpsOnly)
+    secure: true,       // true because your backend is https:// on Render
+    sameSite: "None",   // needed for cross-site cookie
+  })
+  .json({
+    message: `Welcome back ${user.fullname}`,
+    user,
+    success: true,
+  });
+
+
   } catch (error) {
     console.log(error);
   }
