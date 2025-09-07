@@ -93,7 +93,7 @@ export const login = async (req, res) => {
     }
 
     const token = await jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-      expiresIn: "1d",
+      expiresIn: "10d",
     });
 
     user = {
@@ -106,9 +106,7 @@ export const login = async (req, res) => {
       savedJobs: user.savedJobs
     };
 
-    return res
-      .status(200)
-      .cookie("token", token, {
+    return res.status(200).cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpsOnly: true,
         sameSite: "strict",
