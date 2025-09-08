@@ -31,7 +31,7 @@ navigate("/browse");
   }
   return (
     <div>
-      <Carousel className="w-full max-w-xl my-15 mx-auto">
+      <Carousel className="w-full max-w-xl my-3 mx-auto">
         <CarouselContent>
           {category.map((cat,index) => (
             <CarouselItem key={index} className="md-basis-1/2 lg:basis-1/3">

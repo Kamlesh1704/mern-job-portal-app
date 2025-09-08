@@ -23,7 +23,14 @@ import Applicants from "./components/admin/Applicants";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import { ProtectedRoute2 } from "./components/ProtectedRoute2";
 import SavedJobs from "./components/SavedJobs";
+import ForgetPassword from "./components/auth/ForgetPassword";
+import ResetPassword from "./components/auth/ResetPassword";
+
 const appRouter = createBrowserRouter([
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
   {
     path: "/",
     element: <Home />,
@@ -33,8 +40,12 @@ const appRouter = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/signup",
-    element: <Signup />,
+    path: "/forget-password",
+    element: <ForgetPassword />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
   {
     path: "/jobs",
@@ -48,7 +59,7 @@ const appRouter = createBrowserRouter([
     path: "/jobs/saved",
     element: (
       <ProtectedRoute2>
-        <SavedJobs/>,
+        <SavedJobs />,
       </ProtectedRoute2>
     ),
   },

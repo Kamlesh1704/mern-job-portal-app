@@ -72,6 +72,19 @@ const CompanySetup = () => {
     }
   };
 
+  const jobTypes = [
+    "Full-time",
+    "Part-time",
+    "Internship",
+    "Contract",
+    "Temporary",
+    "Freelance",
+    "Volunteer",
+    "Remote",
+    "On-site",
+    "Hybrid",
+  ];
+
   return (
     <div>
       <Navbar />
@@ -135,12 +148,19 @@ const CompanySetup = () => {
             </div>
             <div>
               <Label className="mb-2.5">Job Type</Label>
-              <Input
-                type="text"
-                name="jobType"
-                value={input.jobType}
-                onChange={changeEventHandler}
-              />
+              <Select
+                value={input.jobType || undefined}
+                onValueChange={(val) => setInput({ ...input, jobType: val })}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a job type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {jobTypes.map((t) => (
+                    <SelectItem key={t} value={t}>{t}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <Label className="mb-2.5">Experience(in Year)</Label>

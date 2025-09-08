@@ -13,8 +13,11 @@ const Home = () => {
   useGetAllJobs();
   const { user } = useSelector((store) => store.auth);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
+    if(user === null){
+      navigate("/signup");
+    }
     if (user && user.role === "recruiter") {
       navigate("/admin/companies");
     }

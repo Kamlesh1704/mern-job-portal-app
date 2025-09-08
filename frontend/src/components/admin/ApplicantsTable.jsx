@@ -16,7 +16,6 @@ import { APPLICATION_API_END_POINT } from "../../utils/constant";
 import { toast } from "sonner";
 const ApplicantsTable = () => {
   const { jobApplications } = useSelector((store) => store.application);
-  console.log(jobApplications);
 
   const updateStatus = async (status, applicationId) => {
     try {

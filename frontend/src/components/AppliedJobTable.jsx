@@ -13,7 +13,6 @@ import { SpaceIcon } from "lucide-react";
 
 const AppliedJobTable = () => {
   const { appliedJobs } = useSelector((store) => store.job);
-  console.log(appliedJobs);
   return (
     <div className="mb-10">
       <Table>

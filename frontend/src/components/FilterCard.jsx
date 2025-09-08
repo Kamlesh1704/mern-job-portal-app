@@ -36,41 +36,60 @@ const dispatch = useDispatch();
   
  
   return (
-    <div className="w-full bg-white p-3 rounded-md ">
-      <Button
-              variant="outline"
-              className=" min-w-30 flex items-center gap-2 text-gray-500 font-semibold mb-4 ml-3"
-              onClick={() =>navigate("/")}
-            >
-              <ArrowLeft />
-              <span>Back</span>
-            </Button>
-      <h1 className="font-bold text-lg">Filter Jobs</h1>
-      <hr className="mt-3" />
-      <RadioGroup onValueChange={changeHandler} value={selectedValue}>
-        {filterData.map((data, index) => (
-          <div>
-            <h1 className="font-bold text-lg ">{data.filterType}</h1>
-            {data.array.map((item, idx) => {
-              const itemId = `id${index}-${idx}`;
-              return (
-                <div className="flex  items-center space-x-2 my-2">
-                  <RadioGroupItem value={item} id={itemId}/>
-                  <Label htmlFor={itemId}>{item}</Label>
-                </div>
-              );
-            })}
-          </div>
-        ))}
-      </RadioGroup>
-      <Button
-              variant="outline"
-              className=" min-w-30 flex items-center gap-2 text-gray-700 font-semibold mt-5 ml-3"
-              onClick={() =>setSelectedValue("")}
-            >
-              <BrushCleaningIcon />
-              <span >Clear Filter</span>
-            </Button>
+    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+      <div className="flex items-center gap-3 mb-6">
+        <Button
+          variant="outline"
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+          onClick={() => navigate("/")}
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back</span>
+        </Button>
+      </div>
+      
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Filter Jobs</h2>
+        </div>
+        
+        <RadioGroup onValueChange={changeHandler} value={selectedValue} className="space-y-6">
+          {filterData.map((data, index) => (
+            <div key={index} className="space-y-3">
+              <h3 className="font-semibold text-gray-900 text-sm uppercase tracking-wide">
+                {data.filterType}
+              </h3>
+              <div className="space-y-2">
+                {data.array.map((item, idx) => {
+                  const itemId = `id${index}-${idx}`;
+                  return (
+                    <div key={idx} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                      <RadioGroupItem value={item} id={itemId} className="text-primary" />
+                      <Label 
+                        htmlFor={itemId} 
+                        className="text-sm font-medium text-gray-700 cursor-pointer flex-1"
+                      >
+                        {item}
+                      </Label>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </RadioGroup>
+        
+        <div className="pt-4 border-t border-gray-200">
+          <Button
+            variant="outline"
+            className="w-full flex items-center gap-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+            onClick={() => setSelectedValue("")}
+          >
+            <BrushCleaningIcon className="w-4 h-4" />
+            <span>Clear All Filters</span>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

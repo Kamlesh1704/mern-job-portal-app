@@ -55,53 +55,46 @@ console.log(job);
   const isSaved = job.userSaved && job.userSaved.includes(user._id);
   console.log(isSaved);
   return (
-    <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">
-          {daysAgoFunc(job.createdAt) === 0
-            ? "Today"
-            : `${daysAgoFunc(job.createdAt)} days ago`}
-        </p>
-        {
-          route.pathname === "/jobs/saved" ? (
-            <>
-            <Button
-                  variant="outline"
-                  className="rounded-full"
-                  size="icon"
-                  onClick={() => unSaveJobHandler(job._id)}
-                >
-                  <BookmarkX />
-                </Button>
-            </>
-          ):(
-            <>
-            
-            {isSaved ? (
-              <>
-                <Button variant="outline" className="rounded-full" size="icon">
-                  <BookMarked />
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  variant="outline"
-                  className="rounded-full"
-                  size="icon"
-                  onClick={() => saveJobHandler(job._id)}
-                >
-                  <Bookmark />
-                </Button>
-              </>
-            )}
-            </>
-          )
-        }
+    <div className="group bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 card-hover">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            {daysAgoFunc(job.createdAt) === 0
+              ? "Today"
+              : `${daysAgoFunc(job.createdAt)} days ago`}
+          </span>
+        </div>
+        {route.pathname === "/jobs/saved" ? (
+          <Button
+            variant="outline"
+            className="rounded-full w-8 h-8 p-0 hover:bg-red-50 hover:border-red-200 hover:text-red-600"
+            size="icon"
+            onClick={() => unSaveJobHandler(job._id)}
+          >
+            <BookmarkX className="w-4 h-4" />
+          </Button>
+        ) : (
+          <Button
+            variant="outline"
+            className={`rounded-full w-8 h-8 p-0 transition-colors ${
+              isSaved 
+                ? "bg-primary/10 border-primary/20 text-primary" 
+                : "hover:bg-primary/10 hover:border-primary/20 hover:text-primary"
+            }`}
+            size="icon"
+            onClick={() => !isSaved && saveJobHandler(job._id)}
+            disabled={isSaved}
+          >
+            {isSaved ? <BookMarked className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+          </Button>
+        )}
       </div>
-      <div className="flex items-center gap-2 my-2">
-        <Button variant="outline" className="p-6" size="icon">
-          <Avatar>
+
+      {/* Company Info */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center overflow-hidden">
+          <Avatar className="w-10 h-10">
             <AvatarImage
               src={
                 job.company.logo
@@ -110,61 +103,65 @@ console.log(job);
               }
             />
           </Avatar>
-        </Button>
+        </div>
         <div>
-          <h1 className="font-medium text-lg">{job.company.name}</h1>
+          <h3 className="font-semibold text-lg text-gray-900">{job.company.name}</h3>
           <p className="text-sm text-gray-500">India</p>
         </div>
       </div>
-      <div>
-        <h1 className="font-bold text-lg my-2">{job.title}</h1>
-        <p className="text-sm text-gray-600">{job.description} </p>
+
+      {/* Job Title & Description */}
+      <div className="mb-4">
+        <h2 className="font-bold text-xl text-gray-900 mb-2 group-hover:text-primary transition-colors">
+          {job.title}
+        </h2>
+        <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
+          {job.description}
+        </p>
       </div>
-      <div className="flex items-center gap-2 mt-4">
-        <Badge className="text-blue-700 font-bold" variant="ghost">
-          {job.positions} position
+
+      {/* Badges */}
+      <div className="flex flex-wrap items-center gap-2 mb-6">
+        <Badge className="bg-blue-50 text-blue-700 border-blue-200 font-medium">
+          {job.positions} position{job.positions > 1 ? 's' : ''}
         </Badge>
-        <Badge className="text-[#f83002] font-bold" variant="ghost">
-          {job.salary} LPA
+        <Badge className="bg-green-50 text-green-700 border-green-200 font-medium">
+          ₹{job.salary} LPA
         </Badge>
-        <Badge className="text-[#7209b7] font-bold" variant="ghost">
+        <Badge className="bg-purple-50 text-purple-700 border-purple-200 font-medium">
           {job.jobType}
         </Badge>
       </div>
-      <div className="flex gap-3 py-2">
+
+      {/* Action Buttons */}
+      <div className="flex gap-3">
         <Button
           onClick={() => navigate(`/description/${job._id}`)}
           variant="outline"
+          className="flex-1 h-10 font-medium hover:bg-primary hover:text-white hover:border-primary transition-all duration-200"
         >
-          details
+          View Details
         </Button>
 
         {route.pathname === "/jobs/saved" ? (
-          <>
-            <Button className="bg-[#7209b7] cursor-pointer"
-            onClick={() => unSaveJobHandler(job._id)}>
-              Unsave
-            </Button>
-          </>
+          <Button 
+            className="flex-1 h-10 bg-red-500 hover:bg-red-600 text-white font-medium transition-all duration-200"
+            onClick={() => unSaveJobHandler(job._id)}
+          >
+            Remove
+          </Button>
         ) : (
-          <>
-            {isSaved ? (
-              <>
-                <Button className="bg-[#9f7ab8] disabled:cursor-not-allowed hover:bg-[#9f7ab8] ">
-                  Saved
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  className="bg-[#7209b7] cursor-pointer"
-                  onClick={() => saveJobHandler(job._id)}
-                >
-                  save for later{" "}
-                </Button>
-              </>
-            )}
-          </>
+          <Button
+            className={`flex-1 h-10 font-medium transition-all duration-200 ${
+              isSaved 
+                ? "bg-gray-400 hover:bg-gray-400 cursor-not-allowed" 
+                : "bg-primary hover:bg-primary/90 text-white"
+            }`}
+            onClick={() => !isSaved && saveJobHandler(job._id)}
+            disabled={isSaved}
+          >
+            {isSaved ? "Saved" : "Save Job"}
+          </Button>
         )}
       </div>
     </div>

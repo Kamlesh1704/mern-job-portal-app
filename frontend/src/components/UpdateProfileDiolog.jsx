@@ -53,9 +53,8 @@ const dispatch = useDispatch();
     if (input.file) {
       formData.append("file", input.file);
     }
-
     try{
-setLoading(true)
+setLoading(true);
         const res = await axios.post(
           `${USER_API_END_POINT}/profile/update`,
           formData,
@@ -66,6 +65,7 @@ setLoading(true)
             withCredentials: true,
           }
         );
+        console.log(res)
         if(res.data.success){
             dispatch(setAuthUser(res.data.user));
             toast.success(res.data.message);
