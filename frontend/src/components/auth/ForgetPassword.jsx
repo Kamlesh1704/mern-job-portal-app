@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Navbar from "../shared/Navbar";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,6 @@ import axios from "axios";
 import { USER_API_END_POINT } from "../../utils/constant";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -69,12 +68,6 @@ const ForgetPassword = () => {
       setLoading(false);
     }
   };
-  const { user } = useSelector((store) => store.auth);
-  useEffect(() => {
-    if (user) {
-      navigate("/");
-    }
-  }, [user]);
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <Navbar />

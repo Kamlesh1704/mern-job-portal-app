@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import Navbar from "../shared/Navbar";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,6 @@ import axios from "axios";
 import { USER_API_END_POINT } from "../../utils/constant";
 import { toast } from "sonner";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -54,12 +53,6 @@ const ResetPassword = () => {
       setLoading(false);
     }
   };
-  const { user } = useSelector((store) => store.auth);
-  useEffect(() => {
-    if(user === null){
-      navigate("/signup");
-    }
-  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <Navbar />
