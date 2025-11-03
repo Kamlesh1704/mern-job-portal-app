@@ -64,7 +64,7 @@ const CompanySetup = () => {
   };
 
   const submitHandler = async (e) => {
-    e.preventDefault();
+     e.preventDefault();
     const formData = new FormData();
     formData.append("name", input.name);
     formData.append("description", input.description);
