@@ -1,0 +1,37 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+    environment:
+      MONGO_URI: mongodb+srv://kamleshchandel:Kamlesh@cluster0.qdx104d.mongodb.net/
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    networks:
+      - app_network
+    environment:
+      REACT_APP_API_URL: http://backend:8000
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - app_network
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local

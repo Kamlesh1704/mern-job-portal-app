@@ -51,7 +51,7 @@ app.use(cookieParser());
 //Middleware that parses cookies sent by the client.
 
 const corsOptions = {
-    origin: ['http://localhost:5173', 'https://mern-job-portal-frontend-lemon.vercel.app'],
+    origin: ['http://localhost:5173','http://localhost:4173', 'https://mern-job-portal-frontend-lemon.vercel.app'],
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true
 }
