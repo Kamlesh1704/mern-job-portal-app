@@ -51,6 +51,7 @@ const CompanySetup = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log(input)
 
     try {
       setLoading(true);

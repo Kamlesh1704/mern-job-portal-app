@@ -2,7 +2,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "8000:8000"
+      - "5050:5050"
     networks:
       - app_network
     environment:
@@ -17,7 +17,7 @@ services:
     networks:
       - app_network
     environment:
-      REACT_APP_API_URL: http://backend:8000
+      REACT_APP_API_URL: https://mern-job-portal-backend-cdp9.onrender.com
 
   mongodb:
     image: mongo:latest

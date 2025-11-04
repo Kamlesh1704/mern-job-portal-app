@@ -2,12 +2,11 @@ FROM node:22.20.0
 
 WORKDIR /app
 
-COPY package.json .
-
+COPY package*.json ./
 RUN npm install
 
-EXPOSE 5050
-
 COPY . .
+
+EXPOSE 5050
 
 CMD ["npm", "start"]
