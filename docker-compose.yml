@@ -1,32 +1,42 @@
+version: "3.9"
+
 services:
-  backend:
-    build: ./backend
-    ports:
-      - "5050:5050"
-    networks:
-      - app_network
-    environment:
-      MONGO_URI: mongodb+srv://kamleshchandel:Kamlesh@cluster0.qdx104d.mongodb.net/
-    depends_on:
-      - mongodb
-
-  frontend:
-    build: ./frontend
-    ports:
-      - "5173:80"
-    networks:
-      - app_network
-    environment:
-      REACT_APP_API_URL: https://mern-job-portal-backend-cdp9.onrender.com
-
   mongodb:
-    image: mongo:latest
+    image: mongo:6.0
     ports:
       - "27017:27017"
     networks:
       - app_network
     volumes:
       - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "5050:5050"
+    environment:
+      NODE_ENV: development
+      PORT: 5050
+      # 👇 Use local MongoDB container for CI (Atlas won't work inside Actions)
+      MONGO_URI: mongodb://mongodb:27017/mern_job_portal
+    depends_on:
+      - mongodb
+    networks:
+      - app_network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:80"
+    environment:
+      # 👇 During CI, point API calls to backend service name (Docker internal)
+      REACT_APP_API_URL: http://backend:5050
+    depends_on:
+      - backend
+    networks:
+      - app_network
 
 networks:
   app_network:
