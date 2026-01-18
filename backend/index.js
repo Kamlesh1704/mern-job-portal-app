@@ -51,10 +51,12 @@ app.use(cookieParser());
 //Middleware that parses cookies sent by the client.
 
 const corsOptions = {
-    origin: ['http://localhost:5173', 'https://mern-job-portal-frontend-lemon.vercel.app'],
-      methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    credentials: true
-}
+  origin: [
+    "http://localhost:5173", "https://mern-job-portal-app.vercel.app",
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true,
+};
 app.use(cors(corsOptions));
 //Applies CORS rules globally to the Express app.
 //This tells your backend to accept requests from your frontend (like localhost:5173) and also allow credentials (cookies, etc.).
